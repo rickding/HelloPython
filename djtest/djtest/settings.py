@@ -31,8 +31,14 @@ ALLOWED_HOSTS = []
 # https://blog.csdn.net/yeyingcai/article/details/78647553
 djcelery.setup_loader()  ###
 CELERY_TIMEZONE = 'Asia/Shanghai'  # 并没有北京时区，与下面TIME_ZONE应该一致
-# BROKER_URL = 'redis://localhost:6379/8'  # 任何可用的redis都可以，不一定要在django server运行的主机上
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'  ###
+# BROKER_URL = 'redis://localhost:6379/8'  # 任何可用的redis都可以，不一定要在django server运行的主机上
+
+# https://blog.csdn.net/liyingke112/article/details/78389403
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'##加密方式CELERY_RESULT_BACKEND = 'redis://:密码@127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # https://blog.csdn.net/dipolar/article/details/22162863
 BROKER_HOST = "localhost"
@@ -42,7 +48,6 @@ BROKER_PASSWORD = "guest"
 BROKER_VHOST = "/"
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

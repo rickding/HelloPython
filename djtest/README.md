@@ -1,6 +1,7 @@
 # Celery
 
 https://blog.csdn.net/yeyingcai/article/details/78647553
+https://blog.csdn.net/liyingke112/article/details/78389403
 https://blog.csdn.net/dipolar/article/details/22162863
 
 Setup for celery:

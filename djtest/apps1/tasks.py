@@ -21,6 +21,21 @@ def add(x, y):
     return x + y
 
 
+def get_task_status(task_func, task_id):
+    t = task_func.AsyncResult(task_id)
+    status = t.state
+    progress = 0
+
+    if status == u'SUCCESS':
+        progress = 100
+    elif status == u'FAILURE':
+        progress = 0
+    elif status == 'PROGRESS':
+        progress = t.info['progress']
+
+    return {'status': status, 'progress': progress}
+
+
 # class AddClass(Task):
 #    def run(x,y):
 #        print "%d + %d = %d"%(x,y,x+y)
