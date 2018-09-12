@@ -8,6 +8,7 @@ tmp
 .idea
 *.sqlite3
 *.sql
+*.pid
 
 # C extensions
 *.so

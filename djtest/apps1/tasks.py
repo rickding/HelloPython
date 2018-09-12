@@ -7,9 +7,16 @@ from celery import task
 # from celery.task import tasks
 # from celery.task import Task
 
+
 @task
-# @shared_task
+def add2(x, y):
+    print("add2: %d + %d = %d" % (x, y, x + y))
+    return x + y
+
+
+@task
 def add(x, y):
+    add2.delay(11, 22)
     print("%d + %d = %d" % (x, y, x + y))
     return x + y
 
