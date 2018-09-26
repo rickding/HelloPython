@@ -17,3 +17,4 @@ https://blog.csdn.net/hongbin_xu/article/details/76284134
 https://github.com/ageitgey/face_recognition
 
 brew install boost-python --with-python2.7
+pip install dlib
