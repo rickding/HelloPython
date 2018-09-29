@@ -1,4 +1,5 @@
 使用tensorflow dlib opencv特定人脸识别
+https://github.com/5455945/tensorflow_demo/tree/master/SpecificFaceRecognition
 
 pip3 install tensorflow==1.2.1
 pip3 install tensorflow_gpu==1.2.1
