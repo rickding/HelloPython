@@ -165,7 +165,7 @@ def cnnTrain():
                     acc = accuracy.eval({x:test_x, y_:test_y, keep_prob_5:1.0, keep_prob_75:1.0})
                     print(n * num_batch + i, "acc:", acc, "  loss:", loss)
                     # 准确率大于0.98时保存并退出
-                    if acc > 0.98 and n > 2:
+                    if acc > 0.918 and n > 2:
                         saver.save(sess, model_path + '/train_faces.model', global_step = n * num_batch + i)
                         sys.exit(0)
         print('accuracy less 0.98, exited!')
