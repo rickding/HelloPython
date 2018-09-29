@@ -144,10 +144,15 @@ def is_my_face(image):
 # 使用dlib自带的frontal_face_detector作为我们的特征提取器
 detector = dlib.get_frontal_face_detector()
 
-cam = cv2.VideoCapture(0)
+# cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture('./input_video/short_hamilton_clip.mp4')
 
 while True:
-    _, img = cam.read()
+    success, img = cam.read()
+    if not success:
+        print('No more image!')
+        break
+
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     dets = detector(gray_image, 1)
     if not len(dets):
