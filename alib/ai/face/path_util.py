@@ -1,6 +1,6 @@
 import logging
 
-from ai.util.file_util import temp_path, full_path
+from ai.util.file_util import temp_path, full_path, mk_dir
 
 log = logging.getLogger(__name__)
 
@@ -18,4 +18,7 @@ def video_path(file):
 
 
 def output_path(file):
-    return full_path(temp_path(), file)
+    path = temp_path('processed')
+    mk_dir(path)
+
+    return full_path(path, file)

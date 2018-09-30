@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
         # Create an output file, note the resolution/frame rate matches input
         four_cc = cv2.VideoWriter_fourcc(*'XVID')
-        video_output = cv2.VideoWriter(output_path('located.avi'), four_cc, 29.97, (640, 360))
+        video_output = cv2.VideoWriter(output_path('marked.avi'), four_cc, 29.97, (640, 360))
 
         # Load faces
         known_names, known_faces = get_known_faces()
