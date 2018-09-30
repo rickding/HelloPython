@@ -1,28 +1,16 @@
 import logging
-import os
 
 import cv2
 import face_recognition
-from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from ai.decorator.run_time import run_time
+from ai.face.change import ChangeFace
+from ai.face.path_util import image_path
+from ai.face.video_util import get_video_file
+from ai.face.image_util import get_known_faces
 
 log = logging.getLogger(__name__)
-
-
-def image_path(file):
-    return os.path.join(settings.TEMP_DIR, file)
-
-
-def get_video_file():
-    video_input = cv2.VideoCapture(image_path('hamilton_clip.mp4'))
-    video_len = int(video_input.get(cv2.CAP_PROP_FRAME_COUNT))
-    return video_input, video_len
-
-
-def get_video_capture():
-    return cv2.VideoCapture(0), 1
 
 
 # https://github.com/ageitgey/face_recognition
@@ -32,24 +20,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Open the input video
         # video_input, video_len = get_video_capture()
-        video_input, video_len = get_video_file()
+        video_input, video_len = get_video_file('hamilton_clip.mp4')
 
         # Create an output file, note the resolution/frame rate matches input
         four_cc = cv2.VideoWriter_fourcc(*'XVID')
         video_output = cv2.VideoWriter(image_path('located.avi'), four_cc, 29.97, (640, 360))
 
         # Load faces
-        known_names = ['Lin-Manuel Miranda', 'Alex Lacamoire', 'Biden', 'Obama']
-        known_faces = [
-            face_recognition.face_encodings(face_recognition.load_image_file(
-                image_path('lin-manuel-miranda.png')))[0],
-            face_recognition.face_encodings(face_recognition.load_image_file(
-                image_path('alex-lacamoire.png')))[0],
-            face_recognition.face_encodings(face_recognition.load_image_file(
-                image_path('biden.jpg')))[0],
-            face_recognition.face_encodings(face_recognition.load_image_file(
-                image_path('obama.jpg')))[0],
-        ]
+        known_names, known_faces = get_known_faces()
+
+        # Change face
+        change_face = ChangeFace()
+        change_face.load_image_src(cv2.imread(image_path('obama.jpg')))
 
         face_locations = []
         face_names = []
@@ -65,6 +47,9 @@ class Command(BaseCommand):
                 face_locations, face_names = self.locate(frame, known_faces, known_names, 2)
             frame = self.mark(frame, face_locations, face_names, 2)
 
+            # change_face.load_image_dst(frame)
+            # frame = change_face.run()
+
             # Write image to output file
             log.info('Writing frame %d / %d, names: %s' % (frame_number, video_len, str(face_names)))
             video_output.write(frame)
@@ -72,8 +57,8 @@ class Command(BaseCommand):
             # Display the image
             cv2.imshow('Video', frame)
 
-            # Quit by hitting 'q' on the keyboard
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            # Quit by hitting 'q' or ESC on the keyboard
+            if cv2.waitKey(1) & 0xFF in [ord('q'), 27]:
                 break
 
         # Release handle
