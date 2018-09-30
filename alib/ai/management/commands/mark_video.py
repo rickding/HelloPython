@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 from ai.decorator.run_time import run_time
 from ai.face.image_util import get_known_faces
-from ai.face.path_util import image_path
+from ai.face.path_util import output_path
 from ai.face.video_util import get_video_file
 
 log = logging.getLogger(__name__)
@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
         # Create an output file, note the resolution/frame rate matches input
         four_cc = cv2.VideoWriter_fourcc(*'XVID')
-        video_output = cv2.VideoWriter(image_path('located.avi'), four_cc, 29.97, (640, 360))
+        video_output = cv2.VideoWriter(output_path('located.avi'), four_cc, 29.97, (640, 360))
 
         # Load faces
         known_names, known_faces = get_known_faces()

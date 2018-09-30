@@ -5,7 +5,7 @@ import cv2
 from django.core.management.base import BaseCommand
 
 from ai.face.change import ChangeFace
-from ai.face.path_util import image_path
+from ai.face.path_util import image_path, output_path
 
 log = logging.getLogger(__name__)
 
@@ -19,6 +19,6 @@ class Command(BaseCommand):
         changer.load_images(image_path('lin-manuel-miranda.png'), image_path('biden.jpg'))
         ret = changer.run(False, False)
 
-        file_save = image_path('changed.jpg')
+        file_save = output_path('changed.jpg')
         cv2.imwrite(file_save, ret)
         return file_save
