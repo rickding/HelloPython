@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 # https://blog.csdn.net/hongbin_xu/article/details/79179194
 class Command(BaseCommand):
-    help = 'change face'
+    help = 'change face in picture'
 
     def handle(self, *args, **options):
         changer = ChangeFace()

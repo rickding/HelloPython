@@ -91,7 +91,7 @@ class ChangeFace(object):
         self.landmarks2 = self.get_landmark(self.image2)
 
     @run_time
-    def run(self, showProcedure=False, saveResult=True):
+    def run(self, showProcedure=False, saveResult=False):
         if self.image1 is None or self.image2 is None:
             print('You need to load two images first.')
             return
@@ -159,7 +159,7 @@ class ChangeFace(object):
             print('No face.We need at least one face.')
             raise NoFace
         else:
-            print('left {0}; top {1}; right {2}; bottom {3}'.format(face_rect[0].left(), face_rect[0].top(),
+            log.debug('left {0}; top {1}; right {2}; bottom {3}'.format(face_rect[0].left(), face_rect[0].top(),
                                                                     face_rect[0].right(), face_rect[0].bottom()))
             # box = face_rect[0]
             # shape = predictor(image, box)

@@ -5,10 +5,9 @@ import face_recognition
 from django.core.management.base import BaseCommand
 
 from ai.decorator.run_time import run_time
-from ai.face.change import ChangeFace
+from ai.face.image_util import get_known_faces
 from ai.face.path_util import image_path
 from ai.face.video_util import get_video_file
-from ai.face.image_util import get_known_faces
 
 log = logging.getLogger(__name__)
 
@@ -29,10 +28,6 @@ class Command(BaseCommand):
         # Load faces
         known_names, known_faces = get_known_faces()
 
-        # Change face
-        change_face = ChangeFace()
-        change_face.load_image_src(cv2.imread(image_path('obama.jpg')))
-
         face_locations = []
         face_names = []
         frame_number = 0
@@ -46,9 +41,6 @@ class Command(BaseCommand):
             if frame_number % 4 == 1:
                 face_locations, face_names = self.locate(frame, known_faces, known_names, 2)
             frame = self.mark(frame, face_locations, face_names, 2)
-
-            # change_face.load_image_dst(frame)
-            # frame = change_face.run()
 
             # Write image to output file
             log.info('Writing frame %d / %d, names: %s' % (frame_number, video_len, str(face_names)))
