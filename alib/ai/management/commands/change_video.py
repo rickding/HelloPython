@@ -64,7 +64,7 @@ class Command(BaseCommand):
 
             # Write image to output file
             cv2.imshow("Changed", frame_changed)
-            # video_output.write(frame_changed)
+            video_output.write(frame_changed)
 
             # Quit by hitting 'q' or ESC on the keyboard
             if cv2.waitKey(1) & 0xFF in [ord('q'), 27]:
