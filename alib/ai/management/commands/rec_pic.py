@@ -18,7 +18,8 @@ class Command(BaseCommand):
         known_names, known_faces = get_known_faces()
 
         img_unknown = face_recognition.load_image_file(image_path('obama_and_biden.jpg'))
-        enc_unknown = face_recognition.face_encodings(img_unknown)[0]
+        locations_unknown = face_recognition.face_locations(img_unknown)
+        enc_unknown = face_recognition.face_encodings(img_unknown, locations_unknown)[0]
 
         results = face_recognition.compare_faces(known_faces, enc_unknown)
         log.info('compare_faces: %s', str(results))

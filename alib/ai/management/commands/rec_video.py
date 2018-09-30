@@ -40,7 +40,7 @@ class Command(BaseCommand):
             frame_number += 1
             if frame_number % 4 == 1:
                 face_locations, face_names = self.locate(frame, known_faces, known_names, 2)
-            frame = self.mark(frame, face_locations, face_names, 2)
+            frame = self.mark_names(frame, face_locations, face_names, 2)
 
             # Write image to output file
             log.info('Writing frame %d / %d, names: %s' % (frame_number, video_len, str(face_names)))
@@ -91,8 +91,7 @@ class Command(BaseCommand):
         log.info('located faces: %s' % str(face_names))
         return face_locations, face_names
 
-    @run_time
-    def mark(self, frame, face_locations, face_names, scale=4):
+    def mark_names(self, frame, face_locations, face_names, scale=4):
         if frame is None:
             return frame
 
