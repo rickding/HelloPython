@@ -3,7 +3,7 @@ import logging
 import cv2
 import face_recognition
 
-from ai.face.path_util import image_path
+from ai.util.path_util import image_path
 
 log = logging.getLogger(__name__)
 

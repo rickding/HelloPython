@@ -7,8 +7,8 @@ import numpy as np
 
 from ai.face.face import Face
 from ai.util.file_util import save, get_name
+from ai.util.path_util import face_path, face_dir
 from .face import FaceEncoder
-from .path_util import face_path, face_dir
 
 log = logging.getLogger(__name__)
 

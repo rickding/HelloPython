@@ -22,7 +22,7 @@ def read(path, name):
     if name is None:
         return
 
-    return open(full_path(path, name), 'rb')
+    return open(file_path(path, name), 'rb')
 
 
 def save(path, name, data):
@@ -32,7 +32,7 @@ def save(path, name, data):
     path = mk_dir(path)
 
     # Save file
-    file = open(full_path(path, name), "wb")
+    file = open(file_path(path, name), "wb")
     log.info('Save to file: %s, %s, %d' % (file.name, type(data), len(data)))
 
     file.write(data)
@@ -66,7 +66,7 @@ def temp_path(sub_path=None):
     return os.path.join(settings.TEMP_DIR, sub_path)
 
 
-def full_path(path, name):
+def file_path(path, name):
     if name is None:
         return
 

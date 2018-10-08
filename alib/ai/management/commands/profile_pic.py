@@ -4,8 +4,8 @@ import cv2
 from django.core.management.base import BaseCommand
 
 from ai.face.face_util import profile_faces, save_profile
-from ai.face.path_util import image_path
 from ai.util.file_util import set_ext
+from ai.util.path_util import image_path
 
 log = logging.getLogger(__name__)
 

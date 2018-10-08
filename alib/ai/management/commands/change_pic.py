@@ -5,10 +5,10 @@ import cv2
 from django.core.management.base import BaseCommand
 
 from ai.face.face_change import ChangeFace
-from ai.face.image_util import read_image
 from ai.face.face_util import profile_faces, save_profile
-from ai.face.path_util import image_path, output_path
+from ai.face.image_util import read_image
 from ai.util.file_util import set_ext
+from ai.util.path_util import image_path, output_path
 
 log = logging.getLogger(__name__)
 

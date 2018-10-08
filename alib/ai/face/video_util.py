@@ -2,7 +2,7 @@ import logging
 
 import cv2
 
-from ai.face.path_util import video_path
+from ai.util.path_util import video_path
 
 log = logging.getLogger(__name__)
 

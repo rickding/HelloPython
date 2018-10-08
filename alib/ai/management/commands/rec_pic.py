@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 
 from ai.face.face_util import recognize_faces, mark_names
 from ai.face.image_util import get_known_faces
-from ai.face.path_util import image_path, output_path
+from ai.util.path_util import image_path, output_path
 
 log = logging.getLogger(__name__)
 

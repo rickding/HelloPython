@@ -1,20 +1,20 @@
 import logging
 
-from ai.util.file_util import temp_path, full_path, mk_dir
+from ai.util.file_util import temp_path, file_path, mk_dir
 
 log = logging.getLogger(__name__)
 
 
 def model_path(file):
-    return full_path(temp_path('model'), file)
+    return file_path(temp_path('model'), file)
 
 
 def image_path(file):
-    return full_path(temp_path('image'), file)
+    return file_path(temp_path('image'), file)
 
 
 def video_path(file):
-    return full_path(temp_path('video'), file)
+    return file_path(temp_path('video'), file)
 
 
 def face_dir():
@@ -29,10 +29,10 @@ def face_path(file, sub_path=None):
         path = temp_path(sub_path)
         mk_dir(path)
 
-    return full_path(path, file)
+    return file_path(path, file)
 
 
 def output_path(file):
     path = temp_path('processed')
     mk_dir(path)
-    return full_path(path, file)
+    return file_path(path, file)

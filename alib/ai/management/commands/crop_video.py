@@ -4,8 +4,8 @@ import cv2
 from django.core.management.base import BaseCommand
 
 from ai.face.face_crop import CropFace
-from ai.face.path_util import face_path
 from ai.face.video_util import read_video
+from ai.util.path_util import face_path
 
 log = logging.getLogger(__name__)
 
