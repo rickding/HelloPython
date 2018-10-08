@@ -5,7 +5,8 @@ import face_recognition
 from django.core.management.base import BaseCommand
 
 from ai.decorator.run_time import run_time
-from ai.face.image_util import get_known_faces, mark_names
+from ai.face.face_util import mark_names
+from ai.face.image_util import get_known_faces
 from ai.face.path_util import output_path
 from ai.face.video_util import get_video_file
 
