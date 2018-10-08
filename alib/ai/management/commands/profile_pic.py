@@ -6,8 +6,8 @@ from django.core.management.base import BaseCommand
 
 from ai.face.face import FaceEncoder
 from ai.face.face_util import get_faces
-from ai.face.path_util import image_path, face_path
-from ai.util.file_util import save, get_dir
+from ai.face.path_util import image_path, face_path, face_dir
+from ai.util.file_util import save
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +17,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # image
-        frame = cv2.imread(image_path('obama_and_biden.jpg'))
+        img_file = 'obama_and_biden'
+        frame = cv2.imread(image_path('%s.jpg' % img_file))
         cv2.imshow('Pic', frame)
 
         # detect
@@ -40,4 +41,4 @@ class Command(BaseCommand):
             return 'No faces'
 
         profile = json.dumps(faces, cls=FaceEncoder)
-        return save(get_dir(face_path(faces[0].image_file)), 'profiled_pic.json', profile.encode('utf-8'))
+        return save(face_dir(), '%s.json' % img_file, profile.encode('utf-8'))

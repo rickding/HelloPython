@@ -17,12 +17,17 @@ def video_path(file):
     return full_path(temp_path('video'), file)
 
 
+def face_dir():
+    path = temp_path('face')
+    mk_dir(path)
+    return path
+
+
 def face_path(file, sub_path=None):
-    path = temp_path()
-    for sub_dir in ['face', sub_path]:
-        if sub_dir:
-            path = temp_path(sub_dir)
-            mk_dir(path)
+    path = face_dir()
+    if sub_path:
+        path = temp_path(sub_path)
+        mk_dir(path)
 
     return full_path(path, file)
 
