@@ -4,7 +4,7 @@ import logging
 import cv2
 from django.core.management.base import BaseCommand
 
-from ai.face.change import ChangeFace
+from ai.face.change_face import ChangeFace
 from ai.face.path_util import image_path, output_path
 
 log = logging.getLogger(__name__)

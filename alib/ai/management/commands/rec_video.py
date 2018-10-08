@@ -5,7 +5,7 @@ import face_recognition
 from django.core.management.base import BaseCommand
 
 from ai.decorator.run_time import run_time
-from ai.face.image_util import get_known_faces
+from ai.face.image_util import get_known_faces, mark_names
 from ai.face.path_util import output_path
 from ai.face.video_util import get_video_file
 
@@ -40,7 +40,7 @@ class Command(BaseCommand):
             frame_number += 1
             if frame_number % 4 == 1:
                 face_locations, face_names = self.locate(frame, known_faces, known_names, 2)
-            frame = self.mark_names(frame, face_locations, face_names, 2)
+            frame = mark_names(frame, face_locations, face_names, 2)
 
             # Write image to output file
             log.info('Writing frame %d / %d, names: %s' % (frame_number, video_len, str(face_names)))
@@ -90,28 +90,3 @@ class Command(BaseCommand):
 
         log.info('located faces: %s' % str(face_names))
         return face_locations, face_names
-
-    def mark_names(self, frame, face_locations, face_names, scale=4):
-        if frame is None:
-            return frame
-
-        # Label the faces
-        for (top, right, bottom, left), name in zip(face_locations, face_names):
-            if not name:
-                continue
-
-            # Scale back
-            if scale > 1:
-                top *= scale
-                right *= scale
-                bottom *= scale
-                left *= scale
-
-            # Draw a box
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-
-            # Draw a label with name below the face
-            cv2.rectangle(frame, (left, bottom - 25), (right, bottom), (0, 0, 255), cv2.FILLED)
-            cv2.putText(frame, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
-
-        return frame

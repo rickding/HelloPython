@@ -25,7 +25,7 @@ def get_known_faces():
 
 
 def mark_names(frame, face_locations, face_names, scale=4):
-    if frame is None:
+    if frame is None or len(face_locations) != len(face_names):
         return frame
 
     # Label the faces

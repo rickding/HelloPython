@@ -3,7 +3,7 @@ import logging
 import cv2
 from django.core.management.base import BaseCommand
 
-from ai.face.change import ChangeFace, NoFace, TooManyFaces
+from ai.face.change_face import ChangeFace, NoFace, TooManyFaces
 from ai.face.path_util import output_path
 from ai.face.video_util import get_video_file
 
