@@ -31,4 +31,4 @@ class Command(BaseCommand):
 
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-        return str(len(faces))
+        return str(faces)
