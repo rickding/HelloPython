@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 class ChangeFace(object):
     def __init__(self, which_predictor='68'):
-        print('Starting your FaceChanger...')
+        print('Starting your ChangeFace...')
 
         predictor_68_points_path = model_path('shape_predictor_68_face_landmarks.dat')
         predictor_5_points_path = model_path('shape_predictor_5_face_landmarks.dat')
