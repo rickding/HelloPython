@@ -19,10 +19,11 @@ class Command(BaseCommand):
         predictor = dlib.shape_predictor(model_path('shape_predictor_68_face_landmarks.dat'))
 
         # image
-        img = cv2.imread(image_path('obama_and_biden.jpg'))
+        frame = cv2.imread(image_path('obama_and_biden.jpg'))
+        cv2.imshow('Pic', frame)
 
         # detect
-        faces = detector(img, 1)
+        faces = detector(frame, 1)
         log.info('faces: %d', len(faces))
 
         for k, d in enumerate(faces):
@@ -40,7 +41,7 @@ class Command(BaseCommand):
 
             for i in range(height):
                 for j in range(width):
-                    img_blank[i][j] = img[d.top() + i][d.left() + j]
+                    img_blank[i][j] = frame[d.top() + i][d.left() + j]
 
             cv2.imshow('face', img_blank)
 
@@ -49,7 +50,6 @@ class Command(BaseCommand):
             log.info('Face: %s', file_save)
             cv2.imwrite(file_save, img_blank)
 
-        if len(faces) > 0:
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
-        return str(faces)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        return str(len(faces))
