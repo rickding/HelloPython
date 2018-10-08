@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Open the input video
-        # video_input, video_len = get_video_capture()
+        # video_input, video_len = video_capture()
         video_dst, video_len_dst = read_video('short_hamilton_clip.mp4')
         video_src, video_len_src = read_video('dingxl.mp4')
         video_len = min(video_len_dst, video_len_src)

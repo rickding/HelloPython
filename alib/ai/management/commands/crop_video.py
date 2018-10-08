@@ -17,6 +17,7 @@ class Command(BaseCommand):
         cropper = CropFace()
 
         # video
+        # video_input, video_len = video_capture()
         video_input, video_len = read_video('hamilton_clip.mp4')
 
         frame_number = 0

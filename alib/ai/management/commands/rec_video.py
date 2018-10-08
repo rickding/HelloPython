@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Open the input video
-        # video_input, video_len = get_video_capture()
+        # video_input, video_len = video_capture()
         video_input, video_len = read_video('hamilton_clip.mp4')
 
         # Create an output file, note the resolution/frame rate matches input
