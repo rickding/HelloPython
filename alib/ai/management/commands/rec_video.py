@@ -3,7 +3,7 @@ import logging
 import cv2
 from django.core.management.base import BaseCommand
 
-from ai.face.face_util import mark_names, locate_faces
+from ai.face.face_util import mark_names, recognize_faces
 from ai.face.image_util import get_known_faces
 from ai.face.path_util import output_path
 from ai.face.video_util import read_video
@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 # Convert BGR (openCV) to RGB (face_recognition)
                 rgb_frame = frame[:, :, ::-1]
 
-                face_locations, face_names = locate_faces(rgb_frame, known_faces, known_names, 2)
+                face_locations, face_names = recognize_faces(rgb_frame, known_faces, known_names, 2)
 
             frame = mark_names(frame, face_locations, face_names, 2)
 

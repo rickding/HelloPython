@@ -49,7 +49,7 @@ def get_face_img(frame, locations, show_face=False):
     return face_img
 
 
-def locate_faces(rgb_frame, known_faces, known_names, scale=1):
+def recognize_faces(rgb_frame, known_faces, known_names, scale=1):
     if rgb_frame is None or len(known_faces) != len(known_names):
         return None, None
 

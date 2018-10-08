@@ -5,7 +5,7 @@ import face_recognition
 from PIL import Image
 from django.core.management.base import BaseCommand
 
-from ai.face.face_util import locate_faces, mark_names
+from ai.face.face_util import recognize_faces, mark_names
 from ai.face.image_util import get_known_faces
 from ai.face.path_util import image_path, output_path
 
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         known_names, known_faces = get_known_faces()
 
         img = face_recognition.load_image_file(image_path('obama_and_biden.jpg'))
-        face_locations, face_names = locate_faces(img, known_faces, known_names)
+        face_locations, face_names = recognize_faces(img, known_faces, known_names)
 
         img = mark_names(img, face_locations, face_names)
         img_pil = Image.fromarray(img)

@@ -6,8 +6,8 @@ import dlib
 import numpy as np
 
 from ai.decorator.run_time import run_time
-from ai.face.path_util import model_path, output_path
 from ai.face.image_util import read_image
+from ai.face.path_util import model_path, output_path
 
 log = logging.getLogger(__name__)
 
@@ -65,33 +65,28 @@ class ChangeFace(object):
         self.landmarks1 = None
         self.landmarks2 = None
 
-    def load_images(self, image_1_path, image_2_path):
-        # assert image_1_path.strip().split('.')[-1] == 'jpg'
-        # assert image_2_path.strip().split('.')[-1] == 'jpg'
-
-        #         self.image1 = cv2.imread(image1_path, cv2.IMREAD_COLOR)
-        #         self.image2 = cv2.imread(image2_path, cv2.IMREAD_COLOR)
+    def load_images(self, image_1_path, image_2_path, index_1=0, index_2=0):
         self.image1 = read_image(image_1_path)
         self.image2 = read_image(image_2_path)
 
-        self.landmarks1 = self.get_landmark(self.image1)
-        self.landmarks2 = self.get_landmark(self.image2)
+        self.landmarks1 = self.get_landmark(self.image1, index_1)
+        self.landmarks2 = self.get_landmark(self.image2, index_2)
 
-    def load_image_dst(self, img1):
+    def load_image_dst(self, img1, index=0):
         self.image1 = img1
-        self.landmarks1 = self.get_landmark(self.image1)
+        self.landmarks1 = self.get_landmark(self.image1, index)
 
-    def load_image_src(self, img2):
+    def load_image_src(self, img2, index=0):
         self.image2 = img2
-        self.landmarks2 = self.get_landmark(self.image2)
+        self.landmarks2 = self.get_landmark(self.image2, index)
 
     @run_time
-    def run(self, showProcedure=False, saveResult=True):
+    def run(self, show_procedure=False, save_result=True):
         if self.image1 is None or self.image2 is None:
             print('You need to load two images first.')
             return
 
-        if showProcedure == True:
+        if show_procedure:
             print('Showing the procedure.Press any key to continue your process.')
             cv2.imshow("1", self.image1)
             cv2.waitKey(0)
@@ -102,30 +97,30 @@ class ChangeFace(object):
             self.landmarks1[self.ALIGN_POINTS], self.landmarks2[self.ALIGN_POINTS])
 
         mask = self.get_face_mask(self.image2, self.landmarks2)
-        if showProcedure == True:
+        if show_procedure:
             cv2.imshow("3", mask)
             cv2.waitKey(0)
 
         warped_mask = self.warp_image(mask, M, self.image1.shape)
-        if showProcedure == True:
+        if show_procedure:
             cv2.imshow("4", warped_mask)
             cv2.waitKey(0)
 
         combined_mask = np.max([self.get_face_mask(self.image1, self.landmarks1),
                                 warped_mask], axis=0)
-        if showProcedure == True:
+        if show_procedure:
             cv2.imshow("5", combined_mask)
             cv2.waitKey(0)
 
         warped_img2 = self.warp_image(self.image2, M, self.image1.shape)
-        if showProcedure == True:
+        if show_procedure:
             cv2.imshow("6", warped_img2)
             cv2.waitKey(0)
 
         warped_corrected_img2 = self.correct_colours(self.image1, warped_img2, self.landmarks1)
         warped_corrected_img2_temp = np.zeros(warped_corrected_img2.shape, dtype=warped_corrected_img2.dtype)
         cv2.normalize(warped_corrected_img2, warped_corrected_img2_temp, 0, 1, cv2.NORM_MINMAX)
-        if showProcedure == True:
+        if show_procedure:
             cv2.imshow("7", warped_corrected_img2_temp)
             cv2.waitKey(0)
 
@@ -134,32 +129,34 @@ class ChangeFace(object):
         cv2.normalize(output, output_show, 0, 1, cv2.NORM_MINMAX)
         cv2.normalize(output, output, 0, 255, cv2.NORM_MINMAX)
 
-        if showProcedure == True:
+        if show_procedure:
             cv2.imshow("8", output_show.astype(output_show.dtype))
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
-        if saveResult is True:
+        if save_result:
             cv2.imwrite(output_path('frame_changed.jpg'), output)
 
         return output
 
-    def get_landmark(self, image):
+    def get_landmark(self, image, index=0):
         face_rect = self.detector(image, 1)
 
-        if len(face_rect) > 1:
-            print('Too many faces.We only need no more than one face.')
-            raise TooManyFaces
-        elif len(face_rect) == 0:
+        if len(face_rect) == 0:
             print('No face.We need at least one face.')
             raise NoFace
+        elif index < 0 or index >= len(face_rect):
+            print('Wrong face index: %d, %d' % (index, len(face_rect)))
+            raise WrongFaceIndex
         else:
-            log.debug('left {0}; top {1}; right {2}; bottom {3}'.format(face_rect[0].left(), face_rect[0].top(),
-                                                                    face_rect[0].right(), face_rect[0].bottom()))
+            log.debug('left {0}; top {1}; right {2}; bottom {3}'.format(
+                face_rect[index].left(), face_rect[index].top(),
+                face_rect[index].right(), face_rect[index].bottom()
+            ))
             # box = face_rect[0]
             # shape = predictor(image, box)
             # return np.matrix([[p.x, p.y] for p in shape.parts()])
-            return np.matrix([[p.x, p.y] for p in self.predictor(image, face_rect[0]).parts()])
+            return np.matrix([[p.x, p.y] for p in self.predictor(image, face_rect[index]).parts()])
 
     def transformation_from_points(self, points1, points2):
         points1 = points1.astype(np.float64)
@@ -219,7 +216,7 @@ class ChangeFace(object):
         return img
 
 
-class TooManyFaces(Exception):
+class WrongFaceIndex(Exception):
     pass
 
 

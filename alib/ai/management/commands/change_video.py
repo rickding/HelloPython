@@ -3,7 +3,7 @@ import logging
 import cv2
 from django.core.management.base import BaseCommand
 
-from ai.face.face_change import ChangeFace, NoFace, TooManyFaces
+from ai.face.face_change import ChangeFace, NoFace, WrongFaceIndex
 from ai.face.path_util import output_path
 from ai.face.video_util import read_video
 
@@ -58,7 +58,7 @@ class Command(BaseCommand):
 
                 cv2.imwrite(output_path('changed.jpg'), frame_changed)
                 frame_changed = cv2.imread(output_path('changed.jpg'))
-            except (NoFace, TooManyFaces) as e:
+            except (NoFace, WrongFaceIndex) as e:
                 log.error('Error when change_face: %s' % str(e))
                 frame_changed = frame_dst
 
