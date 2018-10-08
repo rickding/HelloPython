@@ -34,13 +34,13 @@ class ChangeFace(object):
         self.FEATHER_AMOUNT = 11
 
         self.FACE_POINTS = list(range(17, 68))
-        self.MOUTH_POINTS = list(range(48, 61))
+        self.JAW_POINTS = list(range(0, 17))
         self.RIGHT_BROW_POINTS = list(range(17, 22))
         self.LEFT_BROW_POINTS = list(range(22, 27))
+        self.NOSE_POINTS = list(range(27, 35))
         self.RIGHT_EYE_POINTS = list(range(36, 42))
         self.LEFT_EYE_POINTS = list(range(42, 48))
-        self.NOSE_POINTS = list(range(27, 35))
-        self.JAW_POINTS = list(range(0, 17))
+        self.MOUTH_POINTS = list(range(48, 61))
 
         # Points used to line up the images.
         self.ALIGN_POINTS = (self.LEFT_BROW_POINTS + self.RIGHT_EYE_POINTS + self.LEFT_EYE_POINTS +
