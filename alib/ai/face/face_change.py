@@ -6,7 +6,7 @@ import dlib
 import numpy as np
 
 from ai.decorator.run_time import run_time
-from ai.face.path_util import model_path
+from ai.face.path_util import model_path, output_path
 
 log = logging.getLogger(__name__)
 
@@ -91,7 +91,7 @@ class ChangeFace(object):
         self.landmarks2 = self.get_landmark(self.image2)
 
     @run_time
-    def run(self, showProcedure=False, saveResult=False):
+    def run(self, showProcedure=False, saveResult=True):
         if self.image1 is None or self.image2 is None:
             print('You need to load two images first.')
             return
@@ -103,7 +103,7 @@ class ChangeFace(object):
             cv2.imshow("2", self.image2)
             cv2.waitKey(0)
 
-        M = self.transformation_from_points( \
+        M = self.transformation_from_points(
             self.landmarks1[self.ALIGN_POINTS], self.landmarks2[self.ALIGN_POINTS])
 
         mask = self.get_face_mask(self.image2, self.landmarks2)
@@ -116,7 +116,7 @@ class ChangeFace(object):
             cv2.imshow("4", warped_mask)
             cv2.waitKey(0)
 
-        combined_mask = np.max([self.get_face_mask(self.image1, self.landmarks1), \
+        combined_mask = np.max([self.get_face_mask(self.image1, self.landmarks1),
                                 warped_mask], axis=0)
         if showProcedure == True:
             cv2.imshow("5", combined_mask)
@@ -145,7 +145,7 @@ class ChangeFace(object):
             cv2.destroyAllWindows()
 
         if saveResult is True:
-            cv2.imwrite("ChangeFace.jpg", output)
+            cv2.imwrite(output_path('frame_changed.jpg'), output)
 
         return output
 
