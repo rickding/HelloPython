@@ -6,8 +6,9 @@ from django.core.management.base import BaseCommand
 
 from ai.face.face_change import ChangeFace
 from ai.face.image_util import read_image
-from ai.face.face_util import get_faces
+from ai.face.face_util import profile_faces, save_profile
 from ai.face.path_util import image_path, output_path
+from ai.util.file_util import set_ext
 
 log = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ class Command(BaseCommand):
         changer = ChangeFace()
         file_save = None
 
-        src_img_file = image_path('obama.jpg')
+        src_img_file = image_path('obama_and_biden.jpg')
         dst_img_file = image_path('kit_with_rose.jpg')
 
         dst_img = read_image(dst_img_file)
@@ -29,8 +30,11 @@ class Command(BaseCommand):
         cv2.imshow('Pic Dst', dst_img)
         cv2.imshow('Pic Src', src_img)
 
-        dst_faces = get_faces(dst_img)
-        src_faces = get_faces(src_img)
+        dst_faces = profile_faces(dst_img)
+        src_faces = profile_faces(src_img)
+
+        save_profile(dst_faces, set_ext(dst_img_file, '.json'))
+        save_profile(src_faces, set_ext(src_img_file, '.json'))
 
         for i in range(0, len(dst_faces)):
             for j in range(0, len(src_faces)):

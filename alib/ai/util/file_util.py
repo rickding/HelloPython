@@ -85,6 +85,13 @@ def get_dir(path):
         return path
 
 
+def get_name(path):
+    if path is None:
+        return
+
+    return os.path.basename(path)
+
+
 def mk_dir(path):
     if path is None:
         return
@@ -122,3 +129,11 @@ def is_ext(path, ext):
     if path is None or len(path) <= 0 or ext is None or len(ext) <= 0:
         return False
     return path.lower().endswith(ext.lower())
+
+
+def set_ext(path, ext):
+    if is_ext(path, ext) or path is None or len(path) <= 0 or ext is None or len(ext) <= 0:
+        return path
+
+    name, _ = os.path.splitext(path)
+    return "%s%s" % (name, ext)

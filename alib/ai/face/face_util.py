@@ -1,3 +1,4 @@
+import json
 import logging
 
 import cv2
@@ -5,11 +6,37 @@ import face_recognition
 import numpy as np
 
 from ai.face.face import Face
+from ai.util.file_util import save, get_name
+from .face import FaceEncoder
+from .path_util import face_path, face_dir
 
 log = logging.getLogger(__name__)
 
 
-def get_faces(rgb_frame):
+def save_profile(faces, file_name='profile.json', frame_index=-1, show_face=False):
+    if faces is None or len(faces) <= 0:
+        return
+
+    for i, face in enumerate(faces):
+        if show_face:
+            cv2.imshow('Face', face.image)
+
+        face.index = i
+        if frame_index >= 0:
+            face.image_file = '%d_%d.jpg' % (frame_index, face.index)
+        else:
+            face.image_file = '%d.jpg' % face.index
+
+        file_save = face_path(face.image_file)
+        log.info('Face: %s', file_save)
+        cv2.imwrite(file_save, face.image)
+
+    profile = json.dumps(faces, cls=FaceEncoder)
+
+    return save(face_dir(), get_name(file_name), profile.encode('utf-8'))
+
+
+def profile_faces(rgb_frame):
     if rgb_frame is None:
         return None
 
