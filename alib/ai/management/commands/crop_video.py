@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 
 from ai.face.face_crop import CropFace
 from ai.face.path_util import face_path
-from ai.face.video_util import get_video_file
+from ai.face.video_util import read_video
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ class Command(BaseCommand):
         cropper = CropFace()
 
         # video
-        video_input, video_len = get_video_file('hamilton_clip.mp4')
+        video_input, video_len = read_video('hamilton_clip.mp4')
 
         frame_number = 0
         while True:

@@ -8,6 +8,12 @@ from ai.face.path_util import image_path
 log = logging.getLogger(__name__)
 
 
+def read_image(file_path):
+    if file_path is None:
+        return None
+    return cv2.imread(file_path)
+
+
 def get_known_faces():
     # Load faces
     known_names = ['Lin-Manuel Miranda', 'Alex Lacamoire', 'Biden', 'Obama']

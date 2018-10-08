@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from ai.face.face_util import mark_names, locate_faces
 from ai.face.image_util import get_known_faces
 from ai.face.path_util import output_path
-from ai.face.video_util import get_video_file
+from ai.face.video_util import read_video
 
 log = logging.getLogger(__name__)
 
@@ -18,7 +18,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Open the input video
         # video_input, video_len = get_video_capture()
-        video_input, video_len = get_video_file('hamilton_clip.mp4')
+        video_input, video_len = read_video('hamilton_clip.mp4')
 
         # Create an output file, note the resolution/frame rate matches input
         four_cc = cv2.VideoWriter_fourcc(*'XVID')

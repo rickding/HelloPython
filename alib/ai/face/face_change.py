@@ -7,6 +7,7 @@ import numpy as np
 
 from ai.decorator.run_time import run_time
 from ai.face.path_util import model_path, output_path
+from ai.face.image_util import read_image
 
 log = logging.getLogger(__name__)
 
@@ -64,20 +65,14 @@ class ChangeFace(object):
         self.landmarks1 = None
         self.landmarks2 = None
 
-    # 解决OpenCV无法读取中文
-    def cv_imread(self, file_path=""):
-        file_path_gbk = file_path  # .encode('gbk')  # unicode转gbk，字符串变为字节数组
-        img_mat = cv2.imread(file_path_gbk)  # 字节数组直接转字符串，不解码
-        return img_mat
-
     def load_images(self, image_1_path, image_2_path):
         # assert image_1_path.strip().split('.')[-1] == 'jpg'
         # assert image_2_path.strip().split('.')[-1] == 'jpg'
 
         #         self.image1 = cv2.imread(image1_path, cv2.IMREAD_COLOR)
         #         self.image2 = cv2.imread(image2_path, cv2.IMREAD_COLOR)
-        self.image1 = self.cv_imread(image_1_path)
-        self.image2 = self.cv_imread(image_2_path)
+        self.image1 = read_image(image_1_path)
+        self.image2 = read_image(image_2_path)
 
         self.landmarks1 = self.get_landmark(self.image1)
         self.landmarks2 = self.get_landmark(self.image2)

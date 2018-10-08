@@ -1,1 +1,1 @@
-python manage.py change_pic
+python manage.py change_pic_profiled
