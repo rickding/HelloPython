@@ -45,6 +45,6 @@ class CropFace(object):
 
             face_images.append(face_img)
             if show_faces:
-                cv2.imshow('face', face_img)
+                cv2.imshow('Face', face_img)
 
         return face_locations, face_images

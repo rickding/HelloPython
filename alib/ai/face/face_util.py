@@ -2,8 +2,51 @@ import logging
 
 import cv2
 import face_recognition
+import numpy as np
+
+from ai.face.face import Face
 
 log = logging.getLogger(__name__)
+
+
+def get_faces(rgb_frame):
+    if rgb_frame is None:
+        return None
+
+    # Find the faces. Note the rgb format
+    face_locations = face_recognition.face_locations(rgb_frame)
+    if face_locations is None and len(face_locations) <= 0:
+        return None
+
+    # Return face list
+    face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
+    face_landmarks = face_recognition.face_landmarks(rgb_frame, face_locations)
+
+    faces = []
+    for index, locations in enumerate(face_locations):
+        face_img = get_face_img(rgb_frame, locations)
+        faces.append(Face(index, locations, face_encodings[index], face_landmarks[index], face_img))
+
+    return faces
+
+
+def get_face_img(frame, locations, show_face=False):
+    if frame is None or locations is None:
+        return None
+
+    top, right, bottom, left = locations
+    height = bottom - top
+    width = right - left
+
+    face_img = np.zeros((height, width, 3), np.uint8)
+    for i in range(height):
+        for j in range(width):
+            face_img[i][j] = frame[top + i][left + j]
+
+    if show_face:
+        cv2.imshow('Face', face_img)
+
+    return face_img
 
 
 def locate_faces(rgb_frame, known_faces, known_names, scale=1):

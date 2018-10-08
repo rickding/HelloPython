@@ -24,7 +24,7 @@ class Command(BaseCommand):
         log.info('faces: %d', len(faces))
 
         for index, face in enumerate(faces):
-            cv2.imshow('face', face)
+            cv2.imshow('Face', face)
 
             # 存在本地
             file_save = face_path('0_%d.jpg' % index)
