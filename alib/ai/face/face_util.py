@@ -23,9 +23,9 @@ def get_faces(rgb_frame):
     face_landmarks = face_recognition.face_landmarks(rgb_frame, face_locations)
 
     faces = []
-    for index, locations in enumerate(face_locations):
+    for i, locations in enumerate(face_locations):
         face_img = get_face_img(rgb_frame, locations)
-        faces.append(Face(index, locations, face_encodings[index], face_landmarks[index], face_img))
+        faces.append(Face(i, locations, face_encodings[i], face_landmarks[i], face_img))
 
     return faces
 

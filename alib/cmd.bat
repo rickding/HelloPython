@@ -1,1 +1,1 @@
-python manage.py chk hello
+python manage.py profile_pic

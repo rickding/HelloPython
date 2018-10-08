@@ -23,11 +23,11 @@ class Command(BaseCommand):
         face_locations, faces = cropper.run(frame)
         log.info('faces: %d', len(faces))
 
-        for index, face in enumerate(faces):
+        for i, face in enumerate(faces):
             cv2.imshow('Face', face)
 
             # 存在本地
-            file_save = face_path('0_%d.jpg' % index)
+            file_save = face_path('0_%d.jpg' % i)
             log.info('Face: %s', file_save)
             cv2.imwrite(file_save, face)
 
