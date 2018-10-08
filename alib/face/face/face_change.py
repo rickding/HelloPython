@@ -6,8 +6,8 @@ import dlib
 import numpy as np
 
 from ai.decorator.run_time import run_time
-from ai.face.image_util import read_image
 from ai.util.path_util import model_path, output_path
+from face.face.image_util import read_image
 
 log = logging.getLogger(__name__)
 

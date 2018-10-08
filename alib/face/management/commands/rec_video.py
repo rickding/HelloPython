@@ -1,12 +1,12 @@
 import logging
 
 import cv2
+from face.face.image_util import get_known_faces
 from django.core.management.base import BaseCommand
 
-from ai.face.face_util import mark_names, recognize_faces
-from ai.face.image_util import get_known_faces
-from ai.face.video_util import read_video
 from ai.util.path_util import output_path
+from face.face.face_util import mark_names, recognize_faces
+from face.face.video_util import read_video
 
 log = logging.getLogger(__name__)
 

@@ -3,9 +3,9 @@ import logging
 import cv2
 from django.core.management.base import BaseCommand
 
-from ai.face.face_change import ChangeFace, NoFace, WrongFaceIndex
-from ai.face.video_util import read_video
 from ai.util.path_util import output_path
+from face.face.face_change import ChangeFace, NoFace, WrongFaceIndex
+from face.face.video_util import read_video
 
 log = logging.getLogger(__name__)
 

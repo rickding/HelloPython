@@ -1,1 +1,1 @@
-python manage.py startapp ai
+python manage.py startapp face

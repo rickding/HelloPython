@@ -5,9 +5,9 @@ import face_recognition
 from PIL import Image
 from django.core.management.base import BaseCommand
 
-from ai.face.face_util import recognize_faces, mark_names
-from ai.face.image_util import get_known_faces
 from ai.util.path_util import image_path, output_path
+from face.face.face_util import recognize_faces, mark_names
+from face.face.image_util import get_known_faces
 
 log = logging.getLogger(__name__)
 

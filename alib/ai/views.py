@@ -7,4 +7,4 @@ def chk(request):
 
 
 def ai(request):
-    return HttpResponse('ai: %s' % call_command('profile_pic'))
+    return HttpResponse('ai: %s' % call_command('change_pic'))
