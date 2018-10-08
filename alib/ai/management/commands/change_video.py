@@ -63,7 +63,7 @@ class Command(BaseCommand):
                 frame_changed = frame_dst
 
             # Write image to output file
-            cv2.imshow("Changed", frame_changed)
+            cv2.imshow("Changed Video", frame_changed)
             video_output.write(frame_changed)
 
             # Quit by hitting 'q' or ESC on the keyboard
