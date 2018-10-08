@@ -4,9 +4,10 @@ import logging
 import cv2
 from django.core.management.base import BaseCommand
 
+from ai.face.face import FaceEncoder
 from ai.face.face_util import get_faces
 from ai.face.path_util import image_path, face_path
-from ai.face.face import FaceEncoder
+from ai.util.file_util import save, get_dir
 
 log = logging.getLogger(__name__)
 
@@ -34,4 +35,9 @@ class Command(BaseCommand):
             cv2.imwrite(file_save, face.image)
 
         cv2.destroyAllWindows()
-        return json.dumps(faces, cls=FaceEncoder)
+
+        if len(faces) <= 0:
+            return 'No faces'
+
+        profile = json.dumps(faces, cls=FaceEncoder)
+        return save(get_dir(face_path(faces[0].image_file)), 'profiled_pic.json', profile.encode('utf-8'))

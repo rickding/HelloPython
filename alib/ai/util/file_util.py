@@ -75,6 +75,16 @@ def full_path(path, name):
     return os.path.normpath(os.path.join(path, name))
 
 
+def get_dir(path):
+    if path is None:
+        return
+
+    if os.path.isfile(path):
+        return os.path.dirname(path)
+    else:
+        return path
+
+
 def mk_dir(path):
     if path is None:
         return
