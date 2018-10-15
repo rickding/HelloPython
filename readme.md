@@ -14,6 +14,11 @@ C:\Users\username\.jupyter\jupyter_notebook_config
 #c.NotebookApp.notebook_dir = ''
 
 
+# https://conda.io/miniconda.html
+conda install numpy
+
+
+# pip
 pip freeze > requirements.txt
 pip install -r requirement.txt 
 
