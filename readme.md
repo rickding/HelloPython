@@ -7,6 +7,3 @@ http://localhost:8888/lab
 jupyter notebook --generate-config
 C:\Users\username\.jupyter\jupyter_notebook_config
 # c.NotebookApp.notebook_dir = ''
-
-# https://blog.csdn.net/lsg_lsg_lsg/article/details/79036980
-conda install -c menpo dlib
