@@ -30,14 +30,15 @@ def celery_demo_task3(param_dict):
     return 'finished'
 
 
-def do_work(user):
+def do_job(user):
+    logger.info('do_work:%s' % user)
     dispatch(celery_demo_task, {'x': user})
     dispatch(celery_demo_task3, {'z': user})
-    sub_work(user)
+    return sub_job(user)
 
 
-def sub_work(user):
-    dispatch(celery_demo_task2, {'y': user})
+def sub_job(user):
+    return dispatch(celery_demo_task2, {'y': user})
 
 
 # 分发任务
@@ -45,7 +46,7 @@ def dispatch(task, param_dict):
     param_json = json.dumps(param_dict)
 
     try:
-        task.apply_async(
+        return task.apply_async(
             [param_json],
             retry=True,
             retry_policy={
