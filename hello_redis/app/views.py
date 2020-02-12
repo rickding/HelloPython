@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-from .service import redis_service as cache
+from hello_redis.service import redis_service as cache
 
 
 def chk_cache(req):
@@ -8,4 +8,4 @@ def chk_cache(req):
     value = cache.incr(key)
     cache.set(key, value * 2)
 
-    return HttpResponse('cache, key: {}, value: {}'.format(key, cache.get(key)))
+    return HttpResponse('cache, key: {}, value: {}, ttl: {}'.format(key, cache.get(key), cache.ttl(key)))

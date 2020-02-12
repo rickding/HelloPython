@@ -15,3 +15,7 @@ def get(key):
 
 def set(key, value):
     return cache.set(key, value)
+
+
+def ttl(key):
+    return cache.ttl(key)
