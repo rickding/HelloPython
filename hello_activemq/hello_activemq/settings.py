@@ -14,6 +14,13 @@ import logging
 import os
 import sys
 
+MQ_URL = '127.0.0.1'
+MQ_PORT = 61613
+MQ_USER = 'admin'
+MQ_PASSWORD = 'admin'
+MQ_QUEUE = '/queue/SampleQueue'
+MQ_TOPIC = '/topic/SampleTopic'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

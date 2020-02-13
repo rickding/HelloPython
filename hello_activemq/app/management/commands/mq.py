@@ -14,4 +14,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         log.info("mq starts")
-        return mq.recv_msg_from_queue()
+        return mq.consume_msg(True)

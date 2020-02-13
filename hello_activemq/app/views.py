@@ -11,6 +11,8 @@ def chk_mq(req):
         'path': req.get_full_path(),
         'host': req.get_host(),
     })
+
     mq.send_msg_to_queue(msg)
+    mq.send_msg_to_topic(msg)
 
     return HttpResponse(msg)
