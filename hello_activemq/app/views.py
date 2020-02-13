@@ -2,7 +2,7 @@ import json
 
 from django.http import HttpResponse
 
-from hello_activemq.service import mq_service as mq
+from hello_activemq.mq import mq_service as mq
 
 
 def chk_mq(req):
@@ -15,4 +15,4 @@ def chk_mq(req):
     mq.send_msg_to_queue(msg_dict)
     mq.send_msg_to_topic(msg_dict)
 
-    return HttpResponse(msg_dict)
+    return HttpResponse(json.dumps(msg_dict))

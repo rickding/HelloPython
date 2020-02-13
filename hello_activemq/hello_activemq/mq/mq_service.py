@@ -25,25 +25,9 @@ def send_msg(msg_dict, queue_or_topic=settings.MQ_QUEUE):
     conn.send(queue_or_topic, msg_str)
 
 
-class MsgListener(stomp.ConnectionListener):
-    def on_message(self, headers, msg_str):
-        log.info('Receive msg: %s, %s, %s' % (type(msg_str), msg_str, headers))
-
-        msg_dict = None
-        try:
-            msg_dict = json.loads(msg_str)
-        except Exception as e:
-            log.warning('Exception when parse msg: %s' % str(e))
-
-        log.info('Parsed msg: {}, {}'.format(type(msg_dict), msg_dict))
-
-    def on_error(self, headers, msg_str):
-        log.info('Error msg: %s, %s, %s' % (type(msg_str), msg_str, headers))
-
-
-def consume_msg(include_topic=False, queue=settings.MQ_QUEUE, topic=settings.MQ_TOPIC):
+def consume_msg(mq_listener, include_topic=False, queue=settings.MQ_QUEUE, topic=settings.MQ_TOPIC):
     conn = get_conn()
-    conn.set_listener('', MsgListener())
+    conn.set_listener('', mq_listener)
     conn.subscribe(queue)
 
     if include_topic:
