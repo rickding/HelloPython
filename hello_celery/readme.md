@@ -3,6 +3,13 @@ https://www.python.org/
 https://www.djangoproject.com/
 https://www.jetbrains.com/pycharm/
 
+# Celery
+- config settings.py: CELERY_XXX
+- add celery.py
+- add tasks.py
+- add task_util.py
+- add test_task_util.py
+
 IDE:
 - download and install pycharm
 

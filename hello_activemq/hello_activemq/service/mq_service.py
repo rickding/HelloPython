@@ -10,22 +10,24 @@ from django.conf import settings
 log = logging.getLogger(__name__)
 
 
-def send_msg_to_queue(msg_str, queue=settings.MQ_QUEUE):
-    send_msg(msg_str, queue)
+def send_msg_to_queue(msg_dict, queue=settings.MQ_QUEUE):
+    send_msg(msg_dict, queue)
 
 
-def send_msg_to_topic(msg_str, topic=settings.MQ_TOPIC):
-    send_msg(msg_str, topic)
+def send_msg_to_topic(msg_dict, topic=settings.MQ_TOPIC):
+    send_msg(msg_dict, topic)
 
 
-def send_msg(msg_str, queue_or_topic=settings.MQ_QUEUE):
+def send_msg(msg_dict, queue_or_topic=settings.MQ_QUEUE):
     conn = get_conn()
+    msg_str = json.dumps(msg_dict)
+    log.info('Send msg: %s, %s, %s' % (type(msg_dict), type(msg_str), msg_str))
     conn.send(queue_or_topic, msg_str)
 
 
 class MsgListener(stomp.ConnectionListener):
     def on_message(self, headers, msg_str):
-        log.info('Msg: %s, %s' % (msg_str, headers))
+        log.info('Receive msg: %s, %s, %s' % (type(msg_str), msg_str, headers))
 
         msg_dict = None
         try:
@@ -33,10 +35,10 @@ class MsgListener(stomp.ConnectionListener):
         except Exception as e:
             log.warning('Exception when parse msg: %s' % str(e))
 
-        log.info('MsgListener: {}, {}'.format(type(msg_dict), msg_dict))
+        log.info('Parsed msg: {}, {}'.format(type(msg_dict), msg_dict))
 
     def on_error(self, headers, msg_str):
-        log.info('Error msg: %s, %s' % (msg_str, headers))
+        log.info('Error msg: %s, %s, %s' % (type(msg_str), msg_str, headers))
 
 
 def consume_msg(include_topic=False, queue=settings.MQ_QUEUE, topic=settings.MQ_TOPIC):

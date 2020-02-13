@@ -10,7 +10,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hello_celery.settings')
 
 app = Celery(
     'hello_celery',
-    include=['app.tasks'],
+    include=['hello_celery.tasks'],
     broker=settings.CELERY_BROKER,
     backend=settings.CELERY_BACKEND
 )

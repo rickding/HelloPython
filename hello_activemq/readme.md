@@ -3,6 +3,12 @@ https://www.python.org/
 https://www.djangoproject.com/
 https://www.jetbrains.com/pycharm/
 
+# ActiveMQ
+- config settings.py: MQ_XXX
+- add mq_service.py
+- add command: mq.py
+- add test_mq_service.py
+
 IDE:
 - download and install pycharm
 
