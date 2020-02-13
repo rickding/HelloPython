@@ -16,7 +16,6 @@ import sys
 
 CELERY_BROKER = 'redis://127.0.0.1:6379/2'
 CELERY_BACKEND = 'redis://127.0.0.1:6379/3'
-CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 
 # CELERY_RESULT_BACKEND = 'redis://{}:6379/9'.format(HOST_CACHE)
 # BROKER_URL = 'redis://{}:6379/8'.format(HOST_CACHE)

@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import chk_celery
+from app.views import chk_job
 
 urlpatterns = [
-    path('', chk_celery, name='chk'),
+    path('', chk_job, name='chk'),
+    path('job', chk_job, name='chk_job'),
     path('admin/', admin.site.urls),
 ]

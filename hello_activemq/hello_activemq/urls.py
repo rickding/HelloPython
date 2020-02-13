@@ -19,5 +19,6 @@ from app.views import chk_mq
 
 urlpatterns = [
     path('', chk_mq, name='chk'),
+    path('mq', chk_mq, name='chk_mq'),
     path('admin/', admin.site.urls),
 ]

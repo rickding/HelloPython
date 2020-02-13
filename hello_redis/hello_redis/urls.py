@@ -19,5 +19,6 @@ from app.views import chk_cache
 
 urlpatterns = [
     path('', chk_cache, name='chk'),
+    path('cache', chk_cache, name='chk_cache'),
     path('admin/', admin.site.urls),
 ]

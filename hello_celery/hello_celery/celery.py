@@ -23,7 +23,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.update(
     CELERY_ACKS_LATE=True,
-    CELERY_ACCEPT_CONTENT=settings.CELERY_ACCEPT_CONTENT,
+    CELERY_ACCEPT_CONTENT=['pickle', 'json'],
     CELERYD_FORCE_EXECV=True,
     CELERYD_MAX_TASKS_PER_CHILD=500,
     BROKER_HEARTBEAT=0,
