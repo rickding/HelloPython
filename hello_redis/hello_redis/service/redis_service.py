@@ -1,3 +1,5 @@
+import json
+
 from django.core.cache import cache
 
 
@@ -25,10 +27,14 @@ def ttl(key):
     return cache.ttl(key)
 
 
-# hash map
-def h_get(key):
-    return cache.hgetall(key)
+# cache dict: json.dumps and loads, not hash
+def get_dict(key):
+    value = cache.get(key)
+    if value is None:
+        return None
+
+    return json.loads(value)
 
 
-def h_set(key, value_dict):
-    return cache.hmset(key, value_dict)
+def set_dict(key, value_dict):
+    return cache.set(key, json.dumps(value_dict))
