@@ -7,11 +7,12 @@ from celery import Celery, platforms
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hello_celery.settings')
 
-app = Celery('hello_celery',
-             broker='redis://127.0.0.1:6379/2',
-             backend='redis://127.0.0.1:6379/3',
-             include=['app.tasks']
-             )
+app = Celery(
+    'hello_celery',
+    broker='redis://127.0.0.1:6379/2',
+    backend='redis://127.0.0.1:6379/3',
+    include=['app.tasks']
+)
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
