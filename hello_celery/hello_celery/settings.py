@@ -10,7 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import logging
 import os
+import sys
+
+CELERY_BROKER = 'redis://127.0.0.1:6379/2'
+CELERY_BACKEND = 'redis://127.0.0.1:6379/3'
+CELERY_ACCEPT_CONTENT = ['pickle', 'json']
+
+# CELERY_RESULT_BACKEND = 'redis://{}:6379/9'.format(HOST_CACHE)
+# BROKER_URL = 'redis://{}:6379/8'.format(HOST_CACHE)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -112,3 +121,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# logging config
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s [%(filename)s: %(lineno)d, %(funcName)s] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+
+# run_server flag used as switches
+print(sys.argv)
+RUN_SERVER = 'runserver' in sys.argv
+logging.info('server starts, debug: %s, RUN_SERVER: %s\n' % (DEBUG, RUN_SERVER))

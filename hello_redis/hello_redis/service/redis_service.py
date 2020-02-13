@@ -17,5 +17,18 @@ def set(key, value):
     return cache.set(key, value)
 
 
+def delete(key):
+    return cache.delete(key)
+
+
 def ttl(key):
     return cache.ttl(key)
+
+
+# hash map
+def h_get(key):
+    return cache.hgetall(key)
+
+
+def h_set(key, value_dict):
+    return cache.hmset(key, value_dict)

@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import logging
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -26,7 +27,6 @@ SECRET_KEY = 'qn9cm+0tnxm9stmlp1m1#!(=(ou1dz#_vgqeo@uedcqwrwf)i$'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -69,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hello_redis.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -108,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -122,8 +120,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# logging config
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s [%(filename)s: %(lineno)d, %(funcName)s] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+
+# run_server flag used as switches
+print(sys.argv)
+RUN_SERVER = 'runserver' in sys.argv
+logging.info('server starts, debug: %s, RUN_SERVER: %s\n' % (DEBUG, RUN_SERVER))

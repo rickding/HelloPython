@@ -3,6 +3,11 @@ https://www.python.org/
 https://www.djangoproject.com/
 https://www.jetbrains.com/pycharm/
 
+# redis
+- config settings.py: CACHES
+- add redis_service.py
+- test
+
 IDE:
 - download and install pycharm
 

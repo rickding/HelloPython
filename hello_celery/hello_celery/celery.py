@@ -3,15 +3,16 @@ from __future__ import absolute_import, unicode_literals
 import os
 
 from celery import Celery, platforms
+from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hello_celery.settings')
 
 app = Celery(
     'hello_celery',
-    broker='redis://127.0.0.1:6379/2',
-    backend='redis://127.0.0.1:6379/3',
-    include=['app.tasks']
+    include=['app.tasks'],
+    broker=settings.CELERY_BROKER,
+    backend=settings.CELERY_BACKEND
 )
 
 # Using a string here means the worker doesn't have to serialize
@@ -22,7 +23,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.update(
     CELERY_ACKS_LATE=True,
-    CELERY_ACCEPT_CONTENT=['pickle', 'json'],
+    CELERY_ACCEPT_CONTENT=settings.CELERY_ACCEPT_CONTENT,
     CELERYD_FORCE_EXECV=True,
     CELERYD_MAX_TASKS_PER_CHILD=500,
     BROKER_HEARTBEAT=0,
