@@ -25,9 +25,9 @@ def send_msg(msg_dict, queue_or_topic=settings.MQ_QUEUE):
     conn.send(queue_or_topic, msg_str)
 
 
-def consume_msg(mq_listener, include_topic=False, queue=settings.MQ_QUEUE, topic=settings.MQ_TOPIC):
+def consume_msg(listener, include_topic=False, queue=settings.MQ_QUEUE, topic=settings.MQ_TOPIC):
     conn = get_conn()
-    conn.set_listener('', mq_listener)
+    conn.set_listener('', listener)
     conn.subscribe(queue)
 
     if include_topic:

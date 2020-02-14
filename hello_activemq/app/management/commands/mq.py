@@ -1,5 +1,4 @@
 # coding: utf-8
-
 import logging
 
 from django.core.management.base import BaseCommand
