@@ -14,7 +14,7 @@ IDE:
 
 Env:
 - download and install python, select "Add python into environment"
-- [bash] ./pip_install.sh
+- [bash] ./install.sh
 - [bash] ./startproject.sh
 
 Init app and config urls:
