@@ -1,0 +1,3 @@
+torch>=1.0.0
+fastNLP>=0.5.0
+fastHan>=1.3
