@@ -3,14 +3,14 @@
 ## 运行环境
 Ubuntu18.04, Python3.6
 
-##安装fastHan
+## 安装fastHan
 pip3 install fastHan==1.3
 
-注意依赖包：
+- 注意依赖包：
 torch>=1.0.0
 fastNLP>=0.5.0
 
-##使用时只需两步：加载模型、输入句子。
+## 使用时只需两步：加载模型、输入句子。
 
 from fastHan import FastHan
 
@@ -30,7 +30,7 @@ model = FastHan(model_type=”large”)
 
 answer = model(sentence, target=”NER”)
 
-##常见问题
+## 常见问题
 - 不能安装pip，首先运行update
 sudo apt update
 sudo apt install python3-pip
