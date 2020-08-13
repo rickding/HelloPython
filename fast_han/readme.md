@@ -16,19 +16,19 @@ from fastHan import FastHan
 
 model = FastHan()
 
-sentence = “国产人工智能，汉语分析开源项目。”
+sentence = "复旦大学计算机教授，国产人工智能，汉语分析开源项目。";
 print(sentence)
 
-answer = model(sentence)
+answer = model(sentence);
 print(answer)
 
 - 注意首次初始化模型时，将自动从服务器中下载模型数据，并且可以指定large版本，默认base。
 
-model = FastHan(model_type=”large”)
+model = FastHan(model_type="large")
 
-- 模型分词时，可以指定target参数，可选”Parsing”, “CWS”, “POS”, “NER”，默认CWS。
+- 模型分词时，可以指定target参数，可选"Parsing", "CWS", "POS", "NER"，默认CWS。
 
-answer = model(sentence, target=”NER”)
+print(model(sentence, target="NER"))
 
 ## 常见问题
 - 不能安装pip，首先运行update
