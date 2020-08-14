@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-# python manage.py test
-python manage.py test hello_http.tests.test_http_util
+python3 fast_han.py
+
+python3 jieba_test.py
