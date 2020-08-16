@@ -1,6 +1,9 @@
 import jieba
 import jieba.posseg as pseg
 
+# 手动初始化，不调用时，使用延迟加载
+jieba.initialize()
+
 # 启动paddle模式
 jieba.enable_paddle()
 
