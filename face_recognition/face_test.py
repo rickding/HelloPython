@@ -2,7 +2,7 @@ import face_recognition
 import cv2
 from PIL import Image, ImageDraw
 
-image = face_recognition.load_image_file("test.jpg")
+image = face_recognition.load_image_file("./test.jpg")
 face_locations = face_recognition.face_locations(image)
 print("found %d faces" % len(face_locations))
 
@@ -25,7 +25,7 @@ is_same = face_recognition.compare_faces([face_encodings[0]], face_encodings[1])
 
 print("Is same face: ", is_same)
 
-# landmarks
+# landmark
 face_landmarks = face_recognition.face_landmarks(image, face_locations)
 
 pil_image = Image.fromarray(image)

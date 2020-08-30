@@ -3,7 +3,7 @@
 ## 运行环境
 Ubuntu18.04, Python3.6
 
-## 安装fastHan
+## 安装face_recognition
 pip3 install face_recognition
 
 - 注意依赖包：
