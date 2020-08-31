@@ -1,0 +1,4 @@
+pdfminer
+
+paddlepaddle-tiny==1.6.1
+jieba
