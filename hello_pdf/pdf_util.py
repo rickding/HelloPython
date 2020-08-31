@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import io
+
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.layout import LAParams
 from pdfminer.pdfdocument import PDFDocument
@@ -8,27 +9,25 @@ from pdfminer.pdfpage import PDFPage, PDFTextExtractionNotAllowed
 from pdfminer.pdfparser import PDFParser
 
 
-class PDFUtils():
+class PDFUtil:
     def __init__(self):
         pass
 
-    def pdf2txt(self, path):
+    @staticmethod
+    def pdf2txt(file_path):
         output = io.StringIO()
-        with open(path, 'rb') as f:
-            praser = PDFParser(f)
 
-            doc = PDFDocument(praser)
+        with open(file_path, 'rb') as f:
+            parser = PDFParser(f)
+            doc = PDFDocument(parser)
 
             if not doc.is_extractable:
                 raise PDFTextExtractionNotAllowed
 
-            pdfrm = PDFResourceManager()
-
-            laparams = LAParams()
-
-            device = PDFPageAggregator(pdfrm, laparams=laparams)
-
-            interpreter = PDFPageInterpreter(pdfrm, device)
+            resource = PDFResourceManager()
+            params = LAParams()
+            device = PDFPageAggregator(resource, laparams=params)
+            interpreter = PDFPageInterpreter(resource, device)
 
             for page in PDFPage.create_pages(doc):
                 interpreter.process_page(page)
@@ -40,10 +39,9 @@ class PDFUtils():
 
         content = output.getvalue()
         output.close()
+
         return content
 
 
 if __name__ == '__main__':
-    path = u'pdf_test.pdf'
-    pdf_utils = PDFUtils()
-    print(pdf_utils.pdf2txt(path))
+    print(PDFUtil.pdf2txt(u'dingxl.pdf'))
