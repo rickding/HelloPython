@@ -4,3 +4,6 @@ fastHan>=1.3
 
 paddlepaddle-tiny==1.6.1
 jieba
+
+hanlp>=2.0.0
+hanlp_restful>=0.0.2

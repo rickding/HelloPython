@@ -18,20 +18,25 @@ class PDFUtil:
         output = io.StringIO()
 
         with open(file_path, 'rb') as f:
+            # 加载文件
             parser = PDFParser(f)
             doc = PDFDocument(parser)
 
             if not doc.is_extractable:
                 raise PDFTextExtractionNotAllowed
 
+            # 构建参数
             resource = PDFResourceManager()
             params = LAParams()
             device = PDFPageAggregator(resource, laparams=params)
             interpreter = PDFPageInterpreter(resource, device)
 
+            # 遍历数据
             for page in PDFPage.create_pages(doc):
                 interpreter.process_page(page)
                 layout = device.get_result()
+
+                # 读取文本
                 for x in layout:
                     if hasattr(x, "get_text"):
                         content = x.get_text()

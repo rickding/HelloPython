@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import io
 
 import jieba
 import jieba.posseg as pseg
@@ -28,7 +27,7 @@ class CVUtil:
             if f in flag_list:
                 cv[w] = f
 
-        print("\n词性标注：", content)
+        print("\n简历标注：", content)
         return cv
 
 
